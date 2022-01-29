@@ -1,16 +1,43 @@
 import React from 'react';
-import {View, StyleSheet, FlatList} from 'react-native';
+import {View, FlatList, Text} from 'react-native';
+import {Dropdown} from 'react-native-element-dropdown';
 
 import {IKitten} from 'types/kitten';
 import {useHeader, useKittyGenerator} from 'hooks';
 import {KittenCard} from './components';
+import {styles} from './styles';
 
 interface IProps {}
 
 function Home({}: IProps) {
-  const [count, setCount] = React.useState(0);
-  const {kittens} = useKittyGenerator({count});
+  const [dropdownValue, setDropdownValue] = React.useState(null);
+  const [isDropdownFocused, setIsDropdownFocused] = React.useState(false);
+
+  const {kittens} = useKittyGenerator();
   useHeader({title: 'Home'});
+
+  const [kittensToShow, setKittensToShow] = React.useState<Array<IKitten>>([]);
+
+  const dropdownData = React.useMemo(
+    () => [
+      {label: '5', value: '5'},
+      {label: '8', value: '8'},
+      {label: '16', value: '16'},
+    ],
+    [],
+  );
+
+  React.useEffect(() => {
+    if (kittens.length !== kittensToShow.length) {
+      setKittensToShow(kittens);
+    }
+  }, [kittens]);
+
+  React.useEffect(() => {
+    if (!!dropdownValue && parseInt(dropdownValue) !== kittensToShow.length) {
+      setKittensToShow(kittens.slice(0, parseInt(dropdownValue)));
+    }
+  }, [dropdownValue]);
 
   const renderKitten = (kitten: IKitten, index: number) => {
     return <KittenCard data={kitten} index={index} />;
@@ -18,8 +45,33 @@ function Home({}: IProps) {
 
   return (
     <View style={styles.container}>
+      <View style={styles.dropdownRow}>
+        <Text style={styles.dropdownLabel}>{'Kittens count:'}</Text>
+        <Dropdown
+          style={[
+            styles.dropdown,
+            isDropdownFocused && {borderColor: '#db6702'},
+          ]}
+          placeholderStyle={styles.selectedTextStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          iconStyle={styles.iconStyle}
+          data={dropdownData}
+          maxHeight={160}
+          containerStyle={styles.dropdownContainer}
+          labelField="label"
+          valueField="value"
+          placeholder={!isDropdownFocused ? 'All' : '...'}
+          value={dropdownValue}
+          onFocus={() => setIsDropdownFocused(true)}
+          onBlur={() => setIsDropdownFocused(false)}
+          onChange={item => {
+            setDropdownValue(item.value);
+            setIsDropdownFocused(false);
+          }}
+        />
+      </View>
       <FlatList
-        data={kittens}
+        data={kittensToShow}
         numColumns={2}
         renderItem={({item, index}) => renderKitten(item, index)}
         keyExtractor={(_, index) => `kitten-${index}`}
@@ -30,17 +82,5 @@ function Home({}: IProps) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    backgroundColor: 'lightgray',
-    paddingTop: 8,
-  },
-  flatlistContentContainer: {paddingBottom: 80},
-});
 
 export default Home;

@@ -3,29 +3,15 @@ import React from 'react';
 import {IKitten} from 'types/kitten';
 import {getRandomInt, randomNameGenerator, sWidth} from 'utils';
 
-interface IProps {
-  count?: number;
-}
-
-function useKittyGenerator({count = 0}: IProps) {
+function useKittyGenerator() {
   const maxSize = Math.round(sWidth / 2) > 200 ? 200 : Math.round(sWidth / 2);
   const initialNumberOfKittens = 16;
 
   const [kittens, setKittens] = React.useState<Array<IKitten>>([]);
-  const [kittensCount, setKittensCount] = React.useState<number>(
-    initialNumberOfKittens,
-  );
 
   React.useEffect(() => {
     getAllKittens();
   }, [kittens]);
-
-  React.useEffect(() => {
-    if (count > 0) {
-      setKittensCount(count);
-      getAllKittens();
-    }
-  }, [count]);
 
   const getAKitten = async () => {
     let name: string = randomNameGenerator(getRandomInt(4, 10));
@@ -51,7 +37,7 @@ function useKittyGenerator({count = 0}: IProps) {
   };
 
   const getAllKittens = () => {
-    if (kittens.length !== kittensCount) {
+    if (kittens.length !== initialNumberOfKittens) {
       getAKitten();
     }
   };
