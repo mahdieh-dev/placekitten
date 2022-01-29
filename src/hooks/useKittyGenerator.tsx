@@ -1,28 +1,33 @@
 import {Config} from 'api/config';
 import React from 'react';
-import {IGetAKittenRequest, IKitten} from 'types/kitten';
-import {
-  getRandomInt,
-  randomNameGenerator,
-  randomWidthHeightGenerator,
-} from 'utils';
+import {IKitten} from 'types/kitten';
+import {getRandomInt, randomNameGenerator, sWidth} from 'utils';
 
-function useKittyGenerator() {
-  const maxSize = 200;
-  const minSize = 96;
-  const initialNumberOfKittens = 5;
+interface IProps {
+  count?: number;
+}
+
+function useKittyGenerator({count = 0}: IProps) {
+  const maxSize = Math.round(sWidth / 2) > 200 ? 200 : Math.round(sWidth / 2);
+  const initialNumberOfKittens = 16;
 
   const [kittens, setKittens] = React.useState<Array<IKitten>>([]);
+  const [kittensCount, setKittensCount] = React.useState<number>(
+    initialNumberOfKittens,
+  );
 
   React.useEffect(() => {
     getAllKittens();
   }, [kittens]);
 
+  React.useEffect(() => {
+    if (count > 0) {
+      setKittensCount(count);
+      getAllKittens();
+    }
+  }, [count]);
+
   const getAKitten = async () => {
-    const {width, height}: IGetAKittenRequest = randomWidthHeightGenerator(
-      minSize,
-      maxSize,
-    );
     let name: string = randomNameGenerator(getRandomInt(4, 10));
     let kittensTemp = kittens.slice();
     /**
@@ -32,25 +37,21 @@ function useKittyGenerator() {
     while (kittenNameIndex > -1) {
       name = randomNameGenerator(getRandomInt(4, 10));
     }
-    /**
-     * check if this kitten already exists
-     */
-    const kittenImageIndex = kittensTemp.findIndex(
-      el => el.image.uri === `${Config.API_URL}/${width}/${height}`,
-    );
-    if (kittenImageIndex > -1) {
-      getAllKittens();
-    } else {
-      kittensTemp.push({
-        image: {uri: `${Config.API_URL}/${width}/${height}`, width, height},
-        name,
-      });
-      setKittens(kittensTemp);
-    }
+    kittensTemp.push({
+      image: {
+        uri: `${Config.API_URL}/${maxSize}/${maxSize}?image=${
+          kittens.length + 1
+        }`,
+        width: maxSize,
+        height: maxSize,
+      },
+      name,
+    });
+    setKittens(kittensTemp);
   };
 
   const getAllKittens = () => {
-    if (kittens.length !== initialNumberOfKittens) {
+    if (kittens.length !== kittensCount) {
       getAKitten();
     }
   };

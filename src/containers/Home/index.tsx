@@ -8,7 +8,8 @@ import {KittenCard} from './components';
 interface IProps {}
 
 function Home({}: IProps) {
-  const {kittens} = useKittyGenerator();
+  const [count, setCount] = React.useState(0);
+  const {kittens} = useKittyGenerator({count});
   useHeader({title: 'Home'});
 
   const renderKitten = (kitten: IKitten, index: number) => {
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     backgroundColor: 'lightgray',
-    paddingTop: 8
+    paddingTop: 8,
   },
   flatlistContentContainer: {paddingBottom: 80},
 });
