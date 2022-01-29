@@ -3,4 +3,8 @@ export interface IGetAKittenRequest {
   height: number;
 }
 
-export type IKitten = {image: {uri: string} & IGetAKittenRequest; name: string};
+export type IKitten = {
+  image: {uri: string} & IGetAKittenRequest;
+  name: string;
+  info: string;
+};
