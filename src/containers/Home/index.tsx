@@ -6,12 +6,19 @@ import {IKitten} from 'types/kitten';
 import {useHeader, useKittyGenerator} from 'hooks';
 import {KittenCard} from './components';
 import {styles} from './styles';
+import {useSelector} from 'react-redux';
+import {IState} from 'data/Store';
+import {NoInternet} from 'global';
 
 interface IProps {}
 
 function Home({}: IProps) {
   const [dropdownValue, setDropdownValue] = React.useState(null);
   const [isDropdownFocused, setIsDropdownFocused] = React.useState(false);
+
+  const notConnected = useSelector(
+    (state: IState) => state.Application.notConnected,
+  );
 
   const {kittens} = useKittyGenerator();
   useHeader({title: 'Home'});
@@ -42,6 +49,10 @@ function Home({}: IProps) {
   const renderKitten = (kitten: IKitten, index: number) => {
     return <KittenCard data={kitten} index={index} />;
   };
+
+  if (notConnected) {
+    return <NoInternet />;
+  }
 
   return (
     <View style={styles.container}>
