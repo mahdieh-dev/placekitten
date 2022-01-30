@@ -1,7 +1,7 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import ApplicationSlice from './Slices/ApplicationSlice';
 
-const RootReducer = combineReducers({
+export const RootReducer = combineReducers({
   Application: ApplicationSlice.reducer,
 });
 

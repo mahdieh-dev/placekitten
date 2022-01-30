@@ -4,7 +4,7 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 
 function NoInternet() {
   return (
-    <View style={styles.container}>
+    <View testID='no-internet-view' style={styles.container}>
       <Image source={noInternet} style={styles.image} />
       <Text style={styles.text}>{"Couldn't connect to the internet"}</Text>
     </View>

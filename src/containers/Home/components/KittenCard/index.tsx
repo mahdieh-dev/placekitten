@@ -55,7 +55,7 @@ function KittenCard({data, index, onPress}: IProps) {
   }, [loadingStyle]);
 
   return (
-    <View>
+    <View testID={`kitten-card-${index}`}>
       {renderMainCard}
       {isLoading && !isLoadedOnce && (
         <View style={{position: 'absolute', top: 0, left: 0}}>
