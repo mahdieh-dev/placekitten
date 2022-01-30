@@ -9,6 +9,11 @@ jest.mock('@react-navigation/core', () => ({
   }),
 }));
 
+jest.mock('hooks/useKittyGenerator', () => ({
+  __esModule: true,
+  default: () => ({kittens: []}),
+}));
+
 describe('Home Test', () => {
   let navigation: any;
   beforeEach(() => {
@@ -16,16 +21,22 @@ describe('Home Test', () => {
       navigate: jest.fn(),
     };
   });
-  it('should render the kittens correctly', async () => {
-    const maxNumberOfKittens = 16;
 
-    const {getAllByTestId} = render(<Home navigation={navigation} />, {
+  it('should show NoInternet View while no internet', async () => {
+    const {getByTestId} = render(<Home navigation={navigation} />, {
       Application: {
-        noConnected: false,
+        notConnected: true,
       },
     });
+    getByTestId('no-internet-view');
+  });
 
-    const kittens = getAllByTestId(/kitten-card/);
-    expect(kittens).toHaveLength(maxNumberOfKittens);
+  it('should show Loading View while no kittens to show', async () => {
+    const {getByTestId} = render(<Home navigation={navigation} />, {
+      Application: {
+        notConnected: false,
+      },
+    });
+    getByTestId('loading-view');
   });
 });

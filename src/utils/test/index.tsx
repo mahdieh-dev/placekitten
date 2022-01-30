@@ -27,10 +27,10 @@ const customRender = (
 ) =>
   render(ui, {
     wrapper: AllTheProviders({
-      ...preloadedState,
       Application: {
         notConnected: false,
       },
+      ...preloadedState,
     }),
     ...options,
   });

@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 interface IApplicationState {
-  notConnected: Boolean;
+  notConnected: boolean;
 }
 
 const initialState: IApplicationState = {
@@ -12,7 +12,7 @@ const ApplicationSlice = createSlice({
   name: 'ApplicationSlice',
   initialState,
   reducers: {
-    setNotConnected: (state, action: PayloadAction<Boolean>) => {
+    setNotConnected: (state, action: PayloadAction<boolean>) => {
       state.notConnected = action.payload;
     },
   },

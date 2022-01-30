@@ -13,7 +13,7 @@ function KittenFilter({filterKittens}: IProps) {
   const [isDropdownFocused, setIsDropdownFocused] = React.useState(false);
   const [customCount, setCustomCount] = React.useState('');
 
-  const dropdownData = React.useMemo(
+  const dropdownData: Array<{label: string; value: string}> = React.useMemo(
     () => [
       {label: '5', value: '5'},
       {label: '8', value: '8'},
@@ -53,6 +53,11 @@ function KittenFilter({filterKittens}: IProps) {
           setDropdownValue(item.value);
           setIsDropdownFocused(false);
         }}
+        renderItem={(item: {label: string; value: string}) => (
+          <View style={styles.dropdownItemWrapper}>
+            <Text>{item.label}</Text>
+          </View>
+        )}
       />
       {dropdownValue === 'Custom' && (
         <View style={styles.inputRow}>

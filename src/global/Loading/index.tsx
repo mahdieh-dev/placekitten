@@ -4,7 +4,7 @@ import {View, Image, Text, StyleSheet} from 'react-native';
 
 function Loading() {
   return (
-    <View style={styles.loadingContainer}>
+    <View testID="loading-view" style={styles.loadingContainer}>
       <Image source={loading} style={styles.image} />
       <Text style={styles.loadingLabel}>{'Loading...'}</Text>
     </View>

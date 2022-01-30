@@ -56,4 +56,5 @@ export const styles = StyleSheet.create({
     shadowColor: '#000',
   },
   filterButtonLabel: {fontSize: 16, fontWeight: '600', color: '#fff'},
+  dropdownItemWrapper: {paddingVertical: 8, paddingHorizontal: 8},
 });
