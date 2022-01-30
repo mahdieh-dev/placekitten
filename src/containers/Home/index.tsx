@@ -7,6 +7,8 @@ import {useHeader, useKittyGenerator} from 'hooks';
 import {KittenCard, KittenFilter} from './components';
 import {ScreenProvider} from 'global';
 import {initialNumberOfKittens} from 'hooks/useKittyGenerator';
+import {getCachedKittens, setCachedKittens} from 'data/Storage';
+import {sHeight} from 'utils';
 
 type RootStackParamList = {
   HOME: undefined;
@@ -18,15 +20,37 @@ interface IProps {
 
 function Home({navigation}: IProps) {
   const [kittensToShow, setKittensToShow] = React.useState<Array<IKitten>>([]);
+  const [disableFetching, setDisableFetching] = React.useState<boolean>(true);
 
-  const {kittens} = useKittyGenerator();
+  const {kittens} = useKittyGenerator({disableFetching});
   useHeader({title: 'Home'});
+
+  React.useEffect(() => {
+    checkIfCachedDataAvailable();
+  }, []);
 
   React.useEffect(() => {
     if (kittens.length !== kittensToShow.length) {
       setKittensToShow(kittens);
+      if (kittens.length === initialNumberOfKittens) {
+        setCachedKittens(kittens);
+      }
     }
   }, [kittens]);
+
+  const checkIfCachedDataAvailable = async () => {
+    try {
+      const cachedKittens = await getCachedKittens();
+      if (cachedKittens && cachedKittens.length !== 0) {
+        setKittensToShow(cachedKittens);
+        setDisableFetching(true);
+      } else {
+        setDisableFetching(false);
+      }
+    } catch (error) {
+      console.warn('error of getCachedKittens: ', error);
+    }
+  };
 
   const filterKittens = (count: number) => {
     if (count !== kittensToShow.length) {
@@ -76,7 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgray',
     paddingTop: 8,
   },
-  flatlistContentContainer: {paddingBottom: 80},
+  flatlistContentContainer: {paddingBottom: 80, minHeight: sHeight},
 });
 
 export default Home;

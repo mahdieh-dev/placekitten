@@ -3,9 +3,13 @@ import React from 'react';
 import {IKitten} from 'types/kitten';
 import {getRandomInt, randomNameGenerator, sWidth} from 'utils';
 
+interface IProps {
+  disableFetching?: boolean;
+}
+
 export const initialNumberOfKittens = 16;
 
-function useKittyGenerator() {
+function useKittyGenerator({disableFetching}: IProps) {
   const maxSize = Math.round(sWidth / 2) > 200 ? 200 : Math.round(sWidth / 2);
   const kittenDescription =
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
@@ -13,7 +17,10 @@ function useKittyGenerator() {
   const [kittens, setKittens] = React.useState<Array<IKitten>>([]);
 
   React.useEffect(() => {
-    getAllKittens();
+    if (!disableFetching) {
+        console.log("fetching...............")
+      getAllKittens();
+    }
   }, [kittens]);
 
   const getAKitten = async () => {
