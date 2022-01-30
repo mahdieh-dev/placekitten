@@ -1,6 +1,6 @@
 # Kitten React-Native Application
 
-<a href="https://github.com/mshavandi/placekitten?branch=main"><img src="https://freepikpsd.com/file/2019/10/kitten-clipart-png-4-Transparent-Images-Free.png" alt="kitten" width="400" class="display:flex;align-self:center" /></a>
+<a href="https://github.com/mshavandi/placekitten?branch=main" class="width:100%;display:flex;justify-content:center"><img src="https://freepikpsd.com/file/2019/10/kitten-clipart-png-4-Transparent-Images-Free.png" alt="kitten" width="400" class="display:flex;align-self:center" /></a>
 
 This project aims to use [placeKitten.com](https://placekitten.com) API to fetch all kitten images available and lets you customize count of the kittens to show.
 
