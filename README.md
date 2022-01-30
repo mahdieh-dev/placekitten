@@ -1,6 +1,6 @@
 # Kitten React-Native Application
 
-[![Kitten](https://freepikpsd.com/file/2019/10/kitten-clipart-png-4-Transparent-Images-Free.png?style=png)](https://github.com/mshavandi/placekitten?branch=main)
+[![Kitten](https://freepikpsd.com/file/2019/10/kitten-clipart-png-4-Transparent-Images-Free.png?style=png =200x400)](https://github.com/mshavandi/placekitten?branch=main)
 
 This project aims to use [placeKitten.com](https://placekitten.com) API to fetch all kitten images available and lets you customize count of the kittens to show.
 
@@ -100,12 +100,6 @@ For more info please go to https://reactnative.dev/docs/signed-apk-android
 4. Product -> Archive
 
 For more info please go to https://reactnative.dev/docs/publishing-to-app-store
-
-## Components
-
-Components are the basic blocks of a react native application, but since we​​ aim to minimize development complexity, all the components are at the same nesting level.
-
-Another important thing is the use of propTypes to check the kind of data that your components need to work properly. If the component receives some data from others, the type of these props must be defined, and in case you need it the default value of the property too.
 
 ## Redux
 
