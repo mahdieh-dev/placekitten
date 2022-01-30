@@ -11,19 +11,25 @@
   },
   "dependencies": {
     "@react-native-community/netinfo": "^7.1.9",
+    "@react-native-masked-view/masked-view": "^0.2.6",
     "@react-navigation/native": "^6.0.7",
     "@react-navigation/native-stack": "^6.3.0",
     "@reduxjs/toolkit": "^1.7.1",
+    "add": "^2.0.6",
     "axios": "^0.25.0",
     "babel-plugin-module-resolver": "^4.1.0",
     "react": "17.0.2",
     "react-native": "0.67.1",
     "react-native-element-dropdown": "^1.6.1",
+    "react-native-gesture-handler": "^2.2.0",
+    "react-native-linear-gradient": "^2.5.6",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.10.2",
+    "react-native-skeleton-placeholder": "^5.0.0",
     "react-native-vector-icons": "^9.0.0",
     "react-redux": "^7.2.6",
-    "use-debounce": "^7.0.1"
+    "use-debounce": "^7.0.1",
+    "yarn": "^1.22.17"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
