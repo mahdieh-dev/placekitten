@@ -75,7 +75,9 @@ function Home({navigation}: IProps) {
   }, []);
 
   return (
-    <ScreenProvider isLoading={kittensToShow.length === 0}>
+    <ScreenProvider
+      isLoading={kittensToShow.length === 0}
+      hasCached={kittensToShow.length !== 0}>
       <View style={styles.container}>
         <KittenFilter filterKittens={filterKittens} />
         <FlatList

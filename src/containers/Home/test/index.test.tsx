@@ -11,7 +11,7 @@ jest.mock('@react-navigation/core', () => ({
 
 jest.mock('hooks/useKittyGenerator', () => ({
   __esModule: true,
-  default: () => ({kittens: []}),
+  default: ({}) => ({kittens: []}),
 }));
 
 describe('Home Test', () => {

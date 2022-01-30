@@ -2,7 +2,14 @@ import React from 'react';
 
 import {render} from 'utils/test';
 import Home from '../index';
-import {initialNumberOfKittens} from 'hooks/useKittyGenerator';
+import {data as mockData} from './__mocks__/home.data';
+
+const initialNumberOfKittens = 16;
+
+jest.mock('hooks/useKittyGenerator', () => ({
+  __esModule: true,
+  default: ({}) => ({kittens: mockData.kittens}),
+}));
 
 jest.mock('@react-navigation/core', () => ({
   useNavigation: () => ({

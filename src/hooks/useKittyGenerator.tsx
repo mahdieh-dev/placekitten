@@ -18,7 +18,6 @@ function useKittyGenerator({disableFetching}: IProps) {
 
   React.useEffect(() => {
     if (!disableFetching) {
-        console.log("fetching...............")
       getAllKittens();
     }
   }, [kittens]);
