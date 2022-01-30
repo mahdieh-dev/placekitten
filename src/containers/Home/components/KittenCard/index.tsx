@@ -1,7 +1,9 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+
 import {IKitten} from 'types/kitten';
-import {wWidth} from 'utils';
+import {styles} from './styles';
 
 interface IProps {
   index: number;
@@ -10,39 +12,69 @@ interface IProps {
 }
 
 function KittenCard({data, index, onPress}: IProps) {
+  const [isLoading, setIsLoading] = React.useState(true);
+  let isLoadedOnce = React.useRef(false).current;
+
+  const onImageLoadStart = React.useCallback(() => {
+    if (!isLoadedOnce) {
+      setIsLoading(true);
+    }
+  }, [isLoadedOnce]);
+
+  const onImageLoadEnd = React.useCallback(() => {
+    if (!isLoadedOnce) {
+      setIsLoading(false);
+      isLoadedOnce = true;
+    }
+  }, [isLoadedOnce]);
+
+  const loadingStyle = {opacity: isLoading && !isLoadedOnce ? 0.1 : 1};
+
+  const renderMainCard = React.useMemo(() => {
+    return (
+      <View style={loadingStyle}>
+        <TouchableOpacity
+          onPress={onPress}
+          style={{
+            ...styles.container,
+            marginLeft: index % 2 === 0 ? 0 : 16,
+          }}>
+          <Text style={styles.name}>{data.name}</Text>
+          <Image
+            source={{uri: data.image.uri}}
+            onLoadStart={onImageLoadStart}
+            onLoadEnd={onImageLoadEnd}
+            style={styles.image}
+          />
+          <Text style={styles.info}>
+            {data.info.length > 60 ? `${data.info.slice(0, 60)}...` : data.info}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }, [loadingStyle]);
+
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={{
-        ...styles.container,
-        marginLeft: index % 2 === 0 ? 0 : 16,
-      }}>
-      <Text style={styles.name}>{data.name}</Text>
-      <Image source={{uri: data.image.uri}} style={styles.image} />
-      <Text style={styles.info}>
-        {data.info.length > 60 ? `${data.info.slice(0, 60)}...` : data.info}
-      </Text>
-    </TouchableOpacity>
+    <View>
+      {renderMainCard}
+      {isLoading && !isLoadedOnce && (
+        <View style={{position: 'absolute', top: 0, left: 0}}>
+          <SkeletonPlaceholder>
+            <View
+              style={[
+                styles.container,
+                styles.skeletonContainer,
+                {marginLeft: index % 2 === 0 ? 0 : 16},
+              ]}>
+              <View style={styles.skeletonName} />
+              <View style={styles.skeletonImage} />
+              <View style={styles.skeletonInfo} />
+            </View>
+          </SkeletonPlaceholder>
+        </View>
+      )}
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: wWidth / 2 - 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 16,
-    borderRadius: 8,
-  },
-  image: {
-    width: '100%',
-    height: 180,
-    resizeMode: 'cover',
-    borderRadius: 8,
-    marginTop: 4,
-  },
-  name: {fontSize: 16, fontWeight: '700'},
-  info: {fontSize: 14, fontWeight: '400', color: 'grey', marginTop: 4},
-});
 
 export default KittenCard;

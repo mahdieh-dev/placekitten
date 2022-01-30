@@ -9,10 +9,17 @@ import {styles} from './styles';
 import {useSelector} from 'react-redux';
 import {IState} from 'data/Store';
 import {NoInternet} from 'global';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-interface IProps {}
+type RootStackParamList = {
+  HOME: undefined;
+  KITTEN_DETAILS: {data: IKitten};
+};
+interface IProps {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'HOME'>;
+}
 
-function Home({}: IProps) {
+function Home({navigation}: IProps) {
   const [dropdownValue, setDropdownValue] = React.useState(null);
   const [isDropdownFocused, setIsDropdownFocused] = React.useState(false);
 
@@ -46,9 +53,19 @@ function Home({}: IProps) {
     }
   }, [dropdownValue]);
 
-  const renderKitten = (kitten: IKitten, index: number) => {
-    return <KittenCard data={kitten} index={index} />;
+  const navigateToKittenDetails = (kitten: IKitten) => {
+    navigation.navigate('KITTEN_DETAILS', {data: kitten});
   };
+
+  const renderKitten = React.useCallback((kitten: IKitten, index: number) => {
+    return (
+      <KittenCard
+        data={kitten}
+        index={index}
+        onPress={() => navigateToKittenDetails(kitten)}
+      />
+    );
+  }, []);
 
   if (notConnected) {
     return <NoInternet />;
@@ -87,7 +104,6 @@ function Home({}: IProps) {
         renderItem={({item, index}) => renderKitten(item, index)}
         keyExtractor={(_, index) => `kitten-${index}`}
         maxToRenderPerBatch={5}
-        removeClippedSubviews
         contentContainerStyle={styles.flatlistContentContainer}
       />
     </View>
