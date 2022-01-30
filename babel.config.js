@@ -11,4 +11,9 @@ module.exports = {
     ],
     'jest-hoist',
   ],
+  env: {
+    test: {
+      plugins: ['@babel/plugin-transform-modules-commonjs'],
+    },
+  },
 };
