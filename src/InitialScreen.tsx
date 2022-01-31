@@ -26,11 +26,7 @@ function InitialScreen() {
 
   const checkInternetConnectivity = React.useCallback(async () => {
     const response = await NetInfo.fetch();
-    dispatch(
-      ApplicationSlice.actions.setNotConnected(
-        !!response.isConnected && !!response.isInternetReachable,
-      ),
-    );
+    dispatch(ApplicationSlice.actions.setNotConnected(!!!response.isConnected));
   }, []);
 
   return (
