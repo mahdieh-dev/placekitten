@@ -29,15 +29,13 @@ function KittenCard({
         connectionTimedoutCallBack();
       }, 6000);
     }
-  }, [isLoadedOnce]);
+  }, [isLoadedOnce, timeoutRef]);
 
   const onImageLoadEnd = React.useCallback(() => {
-    if (!isLoadedOnce) {
-      setIsLoading(false);
-      if (timeoutRef) clearTimeout(timeoutRef);
-      isLoadedOnce = true;
-    }
-  }, [isLoadedOnce]);
+    setIsLoading(false);
+    if (timeoutRef) clearTimeout(timeoutRef);
+    isLoadedOnce = true;
+  }, [isLoadedOnce, timeoutRef]);
 
   const loadingStyle = {opacity: isLoading && !isLoadedOnce ? 0 : 1};
 
@@ -45,7 +43,7 @@ function KittenCard({
     return (
       <View style={loadingStyle}>
         <TouchableOpacity
-          onPress={isLoading && !isLoadedOnce ? onPress : () => {}}
+          onPress={isLoading ? () => {} : onPress}
           style={{
             ...styles.container,
             marginLeft: index % 2 === 0 ? 0 : 16,
