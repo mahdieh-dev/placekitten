@@ -28,7 +28,7 @@ function ScreenProvider({
       {notConnected && !hasCached && (
         <NoInternet onConnectionRetore={onConnectionRetore} />
       )}
-      {!isLoading && !notConnected && children}
+      {!isLoading && hasCached && children}
     </View>
   );
 }
