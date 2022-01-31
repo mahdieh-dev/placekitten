@@ -59,6 +59,7 @@ This template follows a very simple project structure:
   - `hooks`: Folder to store custom hooks.
   - `navigation`: Folder to store the navigators.
   - `types`: Folder to store all main types of the application, like requests params types or api responses types, ...
+  - `theme`: Folder to store all theme related stuff, including color pallete and etc.
   - `utils`: Folder to store utility functions, constants, ... shared between at least two screens
   - `InitialScreen.tsx`: Main component after `index.tsx` that is wrapped in `redux Provider`
   - `index.tsx`: Main component that starts the whole app.
