@@ -11,6 +11,10 @@ jest.mock('hooks/useKittyGenerator', () => ({
   default: ({}) => ({kittens: mockData.kittens}),
 }));
 
+jest.mock('@react-native-community/netinfo', () => ({
+  fetch: () => true,
+}));
+
 jest.mock('@react-navigation/core', () => ({
   useNavigation: () => ({
     setOptions: jest.fn(),

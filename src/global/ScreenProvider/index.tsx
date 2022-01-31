@@ -8,18 +8,26 @@ import {NoInternet, Loading} from 'global';
 interface IProps {
   isLoading: boolean;
   children: React.ReactNode;
-  hasCached?: boolean
+  hasCached?: boolean;
+  onConnectionRetore: () => void;
 }
 
-function ScreenProvider({isLoading, children, hasCached}: IProps) {
+function ScreenProvider({
+  isLoading,
+  children,
+  hasCached,
+  onConnectionRetore,
+}: IProps) {
   const notConnected = useSelector(
     (state: IState) => state.Application.notConnected,
   );
 
   return (
     <View style={styles.container}>
-      {isLoading && <Loading />}
-      {notConnected && !hasCached && <NoInternet />}
+      {!notConnected && isLoading && <Loading />}
+      {notConnected && !hasCached && (
+        <NoInternet onConnectionRetore={onConnectionRetore} />
+      )}
       {!isLoading && !notConnected && children}
     </View>
   );
