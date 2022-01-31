@@ -1,9 +1,12 @@
-import {RouteProp, useRoute} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useBackHandler, useHeader} from 'hooks';
 import React from 'react';
 import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
+import {RouteProp, useRoute} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+
+import {useBackHandler, useHeader} from 'hooks';
+import {colors} from 'theme/colors';
 import {IKitten} from 'types/kitten';
+import {adh, adw} from 'utils';
 
 type RootStackParamList = {
   KITTEN_DETAILS: undefined;
@@ -42,12 +45,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  image: {width: '100%', height: 300},
-  contentsWrapper: {paddingHorizontal: 16, paddingTop: 16},
+  image: {width: '100%', height: adh(300)},
+  contentsWrapper: {paddingHorizontal: adw(16), paddingTop: adh(16)},
   info: {
-    fontSize: 14,
-    color: '#000',
-    marginTop: 8,
+    fontSize: adw(14),
+    color: colors.black,
+    marginTop: adh(8),
     textAlign: 'justify',
   },
 });

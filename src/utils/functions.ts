@@ -1,3 +1,7 @@
+import {PixelRatio} from 'react-native';
+
+import {sWidth, sHeight} from './constants';
+
 export function getRandomInt(_min: number, _max: number) {
   return Math.round(Math.random() * (_max - _min) + _min);
 }
@@ -25,3 +29,15 @@ export function randomNameGenerator(length: number) {
   }
   return capFirst(result);
 }
+
+function adjustWidth(value: number) {
+  const designWidth = 392.7;
+  return PixelRatio.roundToNearestPixel((value * sWidth) / designWidth);
+}
+
+function adjustHeight(value: number) {
+  const designHeight = 807.2;
+  return PixelRatio.roundToNearestPixel((value * sHeight) / designHeight);
+}
+
+export {adjustWidth as adw, adjustHeight as adh};

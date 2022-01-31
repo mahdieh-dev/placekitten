@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, TouchableOpacity, Text, TextInput} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
+import {colors} from 'theme/colors';
 
 import {styles} from './styles';
 
@@ -36,7 +37,10 @@ function KittenFilter({filterKittens}: IProps) {
     <View style={styles.dropdownRow}>
       <Text style={styles.dropdownLabel}>{'Kittens count:'}</Text>
       <Dropdown
-        style={[styles.dropdown, isDropdownFocused && {borderColor: '#db6702'}]}
+        style={[
+          styles.dropdown,
+          isDropdownFocused && {borderColor: colors.primary},
+        ]}
         placeholderStyle={styles.selectedTextStyle}
         selectedTextStyle={styles.selectedTextStyle}
         iconStyle={styles.iconStyle}

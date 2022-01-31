@@ -9,6 +9,7 @@ import {ScreenProvider} from 'global';
 import {initialNumberOfKittens} from 'hooks/useKittyGenerator';
 import {getCachedKittens, setCachedKittens} from 'data/Storage';
 import {sHeight} from 'utils';
+import {colors} from 'theme/colors';
 
 type RootStackParamList = {
   HOME: undefined;
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 16,
-    backgroundColor: 'lightgray',
+    backgroundColor: colors.light_gray,
     paddingTop: 8,
   },
   flatlistContentContainer: {paddingBottom: 80, minHeight: sHeight},
