@@ -1,33 +1,43 @@
 import {StyleSheet} from 'react-native';
-import {wWidth} from 'utils';
+import {colors} from 'theme/colors';
+import {adh, adw, wWidth} from 'utils';
 
 export const styles = StyleSheet.create({
   container: {
-    width: wWidth / 2 - 24,
+    width: wWidth / 2 - adw(24),
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 16,
-    borderRadius: 8,
+    marginTop: adh(16),
+    borderRadius: adw(8),
   },
   image: {
     width: '100%',
     height: 180,
     resizeMode: 'cover',
-    borderRadius: 8,
-    marginTop: 4,
+    borderRadius: adw(8),
+    marginTop: adh(4),
   },
-  name: {fontSize: 16, fontWeight: '700'},
-  info: {fontSize: 14, fontWeight: '400', color: 'grey', marginTop: 4},
+  name: {fontSize: adw(16), fontWeight: '700'},
+  info: {
+    fontSize: adw(14),
+    fontWeight: '400',
+    color: colors.gray,
+    marginTop: adh(4),
+  },
   skeletonContainer: {
-    height: 220,
+    height: adh(220),
     borderWidth: 0,
   },
-  skeletonName: {width: 80, height: 30, marginTop: 16},
+  skeletonName: {width: adw(80), height: adh(30), marginTop: adh(16)},
   skeletonImage: {
-    width: wWidth / 2 - 24,
-    height: 180,
-    borderRadius: 8,
-    marginTop: 4,
+    width: wWidth / 2 - adw(24),
+    height: adh(180),
+    borderRadius: adw(8),
+    marginTop: adh(4),
   },
-  skeletonInfo: {width: wWidth / 2 - 24, height: 30, marginTop: 4},
+  skeletonInfo: {
+    width: wWidth / 2 - adw(24),
+    height: adh(30),
+    marginTop: adh(4),
+  },
 });

@@ -1,7 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {sWidth} from 'utils';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import {adh, adw, sWidth} from 'utils';
+import {colors} from 'theme/colors';
 
 interface IProps {
   title: string;
@@ -14,16 +16,16 @@ function Header({title, backEnabled, handleBackPress}: IProps) {
     <View style={styles.container}>
       <Icon
         name="menu-outline"
-        color={'#0b0b0b'}
-        size={24}
+        color={colors.black}
+        size={adw(24)}
         style={styles.menuIcon}
       />
       <Text style={styles.title}>{title}</Text>
       {backEnabled && (
         <Icon
           name="chevron-back-outline"
-          color={'#0b0b0b'}
-          size={24}
+          color={colors.black}
+          size={adw(24)}
           style={styles.backIcon}
           onPress={handleBackPress}
         />
@@ -35,29 +37,29 @@ function Header({title, backEnabled, handleBackPress}: IProps) {
 const styles = StyleSheet.create({
   container: {
     width: sWidth,
-    height: 56,
-    backgroundColor: '#db6702',
-    elevation: 8,
-    shadowColor: '#000',
+    height: adh(56),
+    backgroundColor: colors.primary,
+    elevation: adw(8),
+    shadowColor: colors.black,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 16,
+    paddingHorizontal: adw(16),
   },
   title: {
-    fontSize: 22,
+    fontSize: adw(22),
     fontWeight: 'bold',
-    color: '#0b0b0b',
+    color: colors.black,
   },
   menuIcon: {
     position: 'absolute',
-    right: 16,
-    top: 16,
+    right: adw(16),
+    top: adw(16),
   },
   backIcon: {
     position: 'absolute',
-    left: 16,
-    top: 16,
+    left: adw(16),
+    top: adw(16),
   },
 });
 

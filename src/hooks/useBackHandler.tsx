@@ -1,6 +1,6 @@
-import {useFocusEffect} from '@react-navigation/native';
 import React from 'react';
 import {BackHandler} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
 
 interface IProps {
   handleBackPress: () => boolean;

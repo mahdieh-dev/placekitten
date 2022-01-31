@@ -1,6 +1,9 @@
-import {loading} from 'assets';
 import React from 'react';
 import {View, Image, Text, StyleSheet} from 'react-native';
+
+import {loading} from 'assets';
+import {colors} from 'theme/colors';
+import {adw} from 'utils';
 
 function Loading() {
   return (
@@ -17,12 +20,12 @@ const styles = StyleSheet.create({
     paddingTop: '60%',
     alignItems: 'center',
   },
-  image: {width: 100, height: 100, resizeMode: 'contain'},
+  image: {width: adw(100), height: adw(100), resizeMode: 'contain'},
   loadingLabel: {
-    fontSize: 20,
+    fontSize: adw(20),
     fontWeight: '700',
-    color: 'darkgrey',
-    marginTop: 16,
+    color: colors.dark_gray,
+    marginTop: adw(16),
   },
 });
 
