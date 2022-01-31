@@ -9,32 +9,43 @@ interface IProps {
   index: number;
   data: IKitten;
   onPress?: () => void;
+  connectionTimedoutCallBack: () => void;
 }
 
-function KittenCard({data, index, onPress}: IProps) {
+function KittenCard({
+  data,
+  index,
+  onPress,
+  connectionTimedoutCallBack,
+}: IProps) {
   const [isLoading, setIsLoading] = React.useState(true);
   let isLoadedOnce = React.useRef(false).current;
+  let timeoutRef = React.useRef<NodeJS.Timeout | null>(null).current;
 
   const onImageLoadStart = React.useCallback(() => {
     if (!isLoadedOnce) {
       setIsLoading(true);
+      timeoutRef = setTimeout(() => {
+        connectionTimedoutCallBack();
+      }, 6000);
     }
   }, [isLoadedOnce]);
 
   const onImageLoadEnd = React.useCallback(() => {
     if (!isLoadedOnce) {
       setIsLoading(false);
+      if (timeoutRef) clearTimeout(timeoutRef);
       isLoadedOnce = true;
     }
   }, [isLoadedOnce]);
 
-  const loadingStyle = {opacity: isLoading && !isLoadedOnce ? 0.1 : 1};
+  const loadingStyle = {opacity: isLoading && !isLoadedOnce ? 0 : 1};
 
   const renderMainCard = React.useMemo(() => {
     return (
       <View style={loadingStyle}>
         <TouchableOpacity
-          onPress={onPress}
+          onPress={isLoading && !isLoadedOnce ? onPress : () => {}}
           style={{
             ...styles.container,
             marginLeft: index % 2 === 0 ? 0 : 16,
@@ -58,7 +69,7 @@ function KittenCard({data, index, onPress}: IProps) {
     <View testID={`kitten-card-${index}`}>
       {renderMainCard}
       {isLoading && !isLoadedOnce && (
-        <View style={{position: 'absolute', top: 0, left: 0}}>
+        <View style={styles.skeletonWrapper}>
           <SkeletonPlaceholder>
             <View
               style={[

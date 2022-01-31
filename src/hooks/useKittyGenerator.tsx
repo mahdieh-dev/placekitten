@@ -1,5 +1,7 @@
 import {Config} from 'api/config';
+import {IState} from 'data/Store';
 import React from 'react';
+import {useSelector} from 'react-redux';
 import {IKitten} from 'types/kitten';
 import {getRandomInt, randomNameGenerator, sWidth} from 'utils';
 

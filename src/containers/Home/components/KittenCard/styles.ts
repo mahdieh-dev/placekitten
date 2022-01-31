@@ -40,4 +40,5 @@ export const styles = StyleSheet.create({
     height: adh(30),
     marginTop: adh(4),
   },
+  skeletonWrapper: {position: 'absolute', top: 0, left: 0},
 });

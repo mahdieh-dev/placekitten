@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useDispatch} from 'react-redux';
 
 import {IKitten} from 'types/kitten';
 import {useHeader, useKittyGenerator} from 'hooks';
@@ -10,6 +11,7 @@ import {initialNumberOfKittens} from 'hooks/useKittyGenerator';
 import {getCachedKittens, setCachedKittens} from 'data/Storage';
 import {sHeight} from 'utils';
 import {colors} from 'theme/colors';
+import ApplicationSlice from 'data/Slices/ApplicationSlice';
 
 type RootStackParamList = {
   HOME: undefined;
@@ -20,6 +22,8 @@ interface IProps {
 }
 
 function Home({navigation}: IProps) {
+  const dispatch = useDispatch();
+
   const [kittensToShow, setKittensToShow] = React.useState<Array<IKitten>>([]);
   const [disableFetching, setDisableFetching] = React.useState<boolean>(true);
 
@@ -65,18 +69,29 @@ function Home({navigation}: IProps) {
     navigation.navigate('KITTEN_DETAILS', {data: kitten});
   };
 
+  const onConnectionRestore = React.useCallback(() => {
+    checkIfCachedDataAvailable();
+  }, []);
+
+  const connectionTimedoutCallBack = React.useCallback(() => {
+    dispatch(ApplicationSlice.actions.setNotConnected(true));
+    setKittensToShow([]);
+  }, []);
+
   const renderKitten = React.useCallback((kitten: IKitten, index: number) => {
     return (
       <KittenCard
         data={kitten}
         index={index}
         onPress={() => navigateToKittenDetails(kitten)}
+        connectionTimedoutCallBack={connectionTimedoutCallBack}
       />
     );
   }, []);
 
   return (
     <ScreenProvider
+      onConnectionRetore={onConnectionRestore}
       isLoading={kittensToShow.length === 0}
       hasCached={kittensToShow.length !== 0}>
       <View style={styles.container}>

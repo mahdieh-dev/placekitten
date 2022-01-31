@@ -21,14 +21,18 @@ function InitialScreen() {
   });
 
   React.useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener(state => {
-      if (!state.isConnected || !state.isInternetReachable) {
-        dispatch(ApplicationSlice.actions.setNotConnected(false));
-      }
-    });
-
-    return unsubscribe();
+    checkInternetConnectivity();
   }, []);
+
+  const checkInternetConnectivity = React.useCallback(async () => {
+    const response = await NetInfo.fetch();
+    dispatch(
+      ApplicationSlice.actions.setNotConnected(
+        !!response.isConnected && !!response.isInternetReachable,
+      ),
+    );
+  }, []);
+
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.container}>
