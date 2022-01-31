@@ -28,7 +28,7 @@ function InitialScreen() {
     const response = await NetInfo.fetch();
     dispatch(
       ApplicationSlice.actions.setNotConnected(
-        !!response.isConnected && !!response.isInternetReachable,
+        !(!!response.isConnected && !!response.isInternetReachable),
       ),
     );
   }, []);
