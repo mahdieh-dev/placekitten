@@ -6,6 +6,7 @@ import {useDispatch} from 'react-redux';
 import AppNavigator from 'navigation/AppNavigator';
 import ApplicationSlice from 'data/Slices/ApplicationSlice';
 import {Config} from 'api/config';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 function InitialScreen() {
   const dispatch = useDispatch();
@@ -30,7 +31,9 @@ function InitialScreen() {
   }, []);
   return (
     <View style={styles.container}>
-      <AppNavigator />
+      <SafeAreaView style={styles.container}>
+        <AppNavigator />
+      </SafeAreaView>
     </View>
   );
 }

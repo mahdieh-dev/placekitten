@@ -20,7 +20,7 @@ function useKittyGenerator({disableFetching}: IProps) {
     if (!disableFetching) {
       getAllKittens();
     }
-  }, [kittens]);
+  }, [kittens, disableFetching]);
 
   const getAKitten = async () => {
     let name: string = randomNameGenerator(getRandomInt(4, 10));

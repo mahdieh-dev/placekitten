@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
-  dropdownRow: {flexDirection: 'row', alignItems: 'center'},
+  dropdownRow: {flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap'},
   dropdownLabel: {fontSize: 16, fontWeight: '700'},
   dropdown: {
     width: 100,
